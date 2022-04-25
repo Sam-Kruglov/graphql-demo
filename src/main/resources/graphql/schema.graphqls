@@ -1,0 +1,57 @@
+"""
+### Hello, this is a small demo of GraphQL schema!
+
+**Yes**, this is [Markdown](https://commonmark.org/)!
+
+See the official spec for GraphQL schema [here](https://spec.graphql.org/).
+"""
+type Query {
+    """
+    Will get you all books in the database
+    """
+    books(failOnReviewers: Boolean! = false): [Book!]!
+    """
+    Will return the book if found
+    """
+    book(id: ID!, failOnReviewers: Boolean! = false): Book
+    people: [Person!]!
+    person(id: ID!): Person
+}
+
+type Mutation {
+    editBook(id: ID!, description: String): Book!
+}
+
+type Subscription {
+    """
+    Subscribe to changes of a particular book and get notified every time it's changed!
+    """
+    watchBook(id: ID!): Book!
+}
+
+type Book {
+    id: ID!
+    title: String!
+    description: String
+    genre: BookGenre!
+    author: Person!
+    """
+    This will only be returned as null if there was an error fetching reviewers.
+
+    You can supply `failOnReviewers` to the `Query.book` or `Query.books` queries to check it out.
+    """
+    reviewers: [Person!]
+}
+
+type Person {
+    id: ID!
+    firstName: String!
+    lastName: String!
+    email: String
+    authoredBooks: [Book!]!
+    reviewedBooks: [Book!]!
+}
+
+enum BookGenre {
+    ACTION, FANTASY, CLASSIC
+}

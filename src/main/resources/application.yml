@@ -1,0 +1,13 @@
+spring:
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  graphql:
+    graphiql.enabled: true
+    schema.printer.enabled: true
+    websocket.path: /graphql
+
+
+logging.level:
+  SQL: debug
